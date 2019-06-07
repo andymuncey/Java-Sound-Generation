@@ -30,6 +30,13 @@ class Note {
     private Name name;
     private Accidental accidental;
 
+
+
+
+    public Note(Name name){
+        this(name, Accidental.NATURAL);
+    }
+
     public Note(Name name, Accidental accidental) {
         this.name = name;
         this.accidental = (accidental == null) ?  Accidental.NATURAL : accidental;

@@ -1,13 +1,27 @@
 package uk.ac.chester;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.nio.charset.StandardCharsets;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
         // write your code here
 
-        playScale(new Octave().minor());
+
+        File file = new File("src/ThoughtContagion.txt");
+        FileInputStream fileInputStream = new FileInputStream(file);
+        byte[] data = new byte[(int)file.length()];
+        int bytesRead = fileInputStream.read(data);
+        fileInputStream.close();
+
+        String scoreFromFile = new String(data, StandardCharsets.UTF_8);
+        Score score = ScoreParser.parseScore(scoreFromFile);
+
+
+        score.play();
     }
 
 

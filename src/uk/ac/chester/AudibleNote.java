@@ -1,23 +1,23 @@
 package uk.ac.chester;
 
-public class AudibleNote {
+class AudibleNote {
 
     private double frequency;
-    public double getFrequency() {
+    double getFrequency() {
         return frequency;
     }
 
     private double c0 = 16.35160; //the lowest note we will accept
 
-    public AudibleNote(double frequency){
+    AudibleNote(double frequency){
         this.frequency = frequency;
     }
 
-    public AudibleNote(Note.Name name, int octave, Note.Accidental accidental){
+    AudibleNote(Note.Name name, int octave, Note.Accidental accidental){
         this(new Note(name, accidental),octave);
     }
 
-    public AudibleNote(Note note, int octave){
+    AudibleNote(Note note, int octave){
 
         note.convertToSharpRepresentation();
         Note.Name name = note.getName();
@@ -44,7 +44,36 @@ public class AudibleNote {
 
     }
 
-    public String getFullName(){
+    static AudibleNote fromString(String desc){
+        try {
+            Note.Accidental accidental = Note.Accidental.NATURAL;
+            String noteName = desc.toUpperCase().substring(0, 1);
+            Note.Name name = Note.Name.valueOf(noteName);
+
+            if (desc.length() == 3) {
+                char accidentalChar = desc.charAt(1);
+                switch (accidentalChar) {
+                    case '#':
+                    case '♯':
+                        accidental = Note.Accidental.SHARP;
+                        break;
+                    case 'b':
+                    case '♭':
+                        accidental = Note.Accidental.FLAT;
+                        break;
+                }
+            }
+            int octave = Integer.parseInt(desc.toUpperCase().substring(desc.length() - 1, desc.length()));
+
+            return new AudibleNote(name, octave, accidental);
+
+        }
+        catch (Exception e){
+            throw new RuntimeException("Notes must be represented in the form 'A4' or 'B♭4', supplied value was " + desc);
+        }
+    }
+
+    String getFullName(){
 
         int offset = 0;
         double currentNoteFrequency = c0;
@@ -63,7 +92,7 @@ public class AudibleNote {
         return String.format("%s%s%d", note.getName(), note.getAccidental(), octave);
     }
 
-    static double semitoneUp(double freq) {
+    private static double semitoneUp(double freq) {
         return freq * Math.pow(Math.E, Math.log(2)/12) ;
     }
 
