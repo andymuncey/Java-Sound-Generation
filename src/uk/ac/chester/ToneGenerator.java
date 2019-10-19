@@ -43,11 +43,11 @@ public class ToneGenerator {
                     sdl.open();
                     sdl.start();
 
-                    int volume = 127; //cant exceed 127 or will overflow the byte once multiplied by the magnitude of the wave
+                    byte volume = 127; //cant exceed 127 or will overflow the byte once multiplied by the magnitude of the wave
 
                     for (int i = 0; running; i++) {
                         double frequency = Double.longBitsToDouble(frequencyAsLong);
-                        buf[0] = synth.tone(sampleRate, volume, i, frequency);;
+                        buf[0] = synth.sample(sampleRate, volume, i, frequency);;
                         sdl.write(buf, 0, 1);
                     }
                     sdl.drain();
@@ -83,7 +83,7 @@ public class ToneGenerator {
                 sdl.start();
 
                 for (int sample = 0; sample < length; sample++) {
-                    buf[0] = synth.tone(sampleRate, velocity, sample, frequency);;
+                    buf[0] = synth.sample(sampleRate, velocity, sample, frequency);;
                     sdl.write(buf, 0, 1);
                 }
                 sdl.drain();
