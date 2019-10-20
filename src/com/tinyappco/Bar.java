@@ -1,4 +1,4 @@
-package uk.ac.chester;
+package com.tinyappco;
 
 import java.util.Arrays;
 

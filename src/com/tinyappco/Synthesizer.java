@@ -1,4 +1,4 @@
-package uk.ac.chester;
+package com.tinyappco;
 
 public interface Synthesizer {
 
@@ -10,6 +10,6 @@ public interface Synthesizer {
      * @param frequency the frequency of the sound to be generated
      * @return a byte representing the magnitude of the wave form for the sample
      */
-    byte sample(float sampleRate, int volume, int sample, double frequency);
+    short sample(float sampleRate, short volume, int sample, double frequency);
 
 }

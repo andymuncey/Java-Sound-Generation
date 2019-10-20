@@ -1,4 +1,4 @@
-package uk.ac.chester;
+package com.tinyappco;
 
 
 import java.io.File;
@@ -22,6 +22,8 @@ public class Main {
 
 
         score.play();
+
+
     }
 
 

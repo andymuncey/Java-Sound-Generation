@@ -1,4 +1,4 @@
-package uk.ac.chester;
+package com.tinyappco;
 
 class AudibleNote {
 

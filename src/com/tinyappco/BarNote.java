@@ -1,4 +1,4 @@
-package uk.ac.chester;
+package com.tinyappco;
 
 public class BarNote implements Comparable<BarNote> {
 
@@ -29,7 +29,7 @@ public class BarNote implements Comparable<BarNote> {
     private double duration;
     private double start;
 
-    public byte getVelocity() {
+    public short getVelocity() {
         return velocity;
     }
 
@@ -37,7 +37,7 @@ public class BarNote implements Comparable<BarNote> {
         this.velocity = velocity;
     }
 
-    private byte velocity = 127;
+    private short velocity = 127;
 
 
     @Override

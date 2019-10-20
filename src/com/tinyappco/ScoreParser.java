@@ -1,4 +1,4 @@
-package uk.ac.chester;
+package com.tinyappco;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -8,7 +8,6 @@ class ScoreParser {
     static Score parseScore(String text){
 
         String[] barStrings = text.split(Pattern.quote("|"));
-
 
         Score score = new Score();
 

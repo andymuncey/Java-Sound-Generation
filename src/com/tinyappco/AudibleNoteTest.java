@@ -1,15 +1,15 @@
-package uk.ac.chester;
+package com.tinyappco;
 
 import org.junit.Assert;
 
 public class AudibleNoteTest {
 
     @org.junit.Before
-    public void setUp() throws Exception {
+    public void setUp(){
     }
 
     @org.junit.After
-    public void tearDown() throws Exception {
+    public void tearDown() {
     }
 
     @org.junit.Test
