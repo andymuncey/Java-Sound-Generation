@@ -1,7 +1,5 @@
 package com.tinyappco.synths;
 
-import com.tinyappco.Synthesizer;
-
 public class SineWave implements Synthesizer {
     @Override
     public short sample(float sampleRate, short volume, int sample, double frequency) {

@@ -1,5 +1,8 @@
 package com.tinyappco;
 
+import com.tinyappco.temperaments.EqualTemperament;
+import com.tinyappco.temperaments.MusicalTemperament;
+
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -29,6 +32,7 @@ public class Score {
         double beatLength = (60.0*1000) / tempo;
 
         int elapsedBeats = 0;
+        MusicalTemperament temperament = new EqualTemperament();
 
         for (Bar bar:bars) {
 
@@ -37,7 +41,8 @@ public class Score {
                 ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
 
                 Runnable runnable = () -> {
-                    generator.play(note.getNote().getFrequency(), (int) (note.getDuration() * beatLength), note.getVelocity());
+                    double frequency = temperament.frequency(note.getNote());
+                    generator.play(frequency, (int) (note.getDuration() * beatLength), note.getVelocity());
                 };
                 int delayMS = (int)((note.getStart()* beatLength) + (elapsedBeats * beatLength));
                 scheduledExecutorService.schedule(runnable,delayMS, TimeUnit.MILLISECONDS);

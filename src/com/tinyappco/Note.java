@@ -4,13 +4,13 @@ package com.tinyappco;
  * Represents a Note with an octave and accidental
  * Known limitation: Only handles octaves 0-9 inclusive
  */
-class Note {
+public class Note {
 
-    enum Name{
+    public enum Name{
         C,D,E,F,G,A,B
     }
 
-    enum Accidental{
+    public enum Accidental{
         SHARP{
             @Override
             public String toString() {

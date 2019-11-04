@@ -7,13 +7,13 @@ public class BarNote implements Comparable<BarNote> {
      * @param start the beat of the bar to start at (0 being the first beat)
      * @param duration the number of beats the note should last
      */
-    public BarNote(AudibleNote note, double start, double duration) {
+    public BarNote(Note note, double start, double duration) {
         this.note = note;
         this.duration = duration;
         this.start = start;
     }
 
-    public AudibleNote getNote() {
+    public Note getNote() {
         return note;
     }
 
@@ -25,7 +25,7 @@ public class BarNote implements Comparable<BarNote> {
         return start;
     }
 
-    private AudibleNote note;
+    private Note note;
     private double duration;
     private double start;
 

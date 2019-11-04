@@ -21,7 +21,7 @@ class ScoreParser {
                 if (noteString.length() >= 6) {
                     if (!noteString.startsWith("/")){
                         String[] parts = noteString.split(",");
-                        AudibleNote note = AudibleNote.fromString(parts[0]);
+                        Note note = new Note(parts[0]);
                         double startBeat = Double.parseDouble(parts[1]) - 1;
                         double duration = Double.parseDouble(parts[2]);
                         BarNote barNote = new BarNote(note, startBeat,duration);

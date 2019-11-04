@@ -1,4 +1,4 @@
-package com.tinyappco;
+package com.tinyappco.synths;
 
 public interface Synthesizer {
 

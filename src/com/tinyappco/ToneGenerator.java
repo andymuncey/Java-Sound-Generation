@@ -1,7 +1,7 @@
 package com.tinyappco;
 
-import com.tinyappco.synths.Piano;
 import com.tinyappco.synths.SineWave;
+import com.tinyappco.synths.Synthesizer;
 
 import javax.sound.sampled.*;
 
