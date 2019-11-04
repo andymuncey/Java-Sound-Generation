@@ -25,6 +25,7 @@ class AudibleNote {
 
         assert(octave >= -1 && octave <= 9);
 
+
         //find frequency of C for the Octave
         frequency = c0 * Math.pow(2,octave);
 
@@ -37,10 +38,8 @@ class AudibleNote {
             }
             semitonesUp++;
         }
-        while (semitonesUp > 0){
-            frequency = semitoneUp(frequency);
-            semitonesUp--;
-        }
+
+        frequency = transpose(frequency,semitonesUp);
 
     }
 
@@ -73,12 +72,16 @@ class AudibleNote {
         }
     }
 
+    /**
+     * Calculates the name of the note based on its frequency
+     * @return
+     */
     String getFullName(){
 
         int offset = 0;
         double currentNoteFrequency = c0;
         double upper = currentNoteFrequency * 1.02;
-//calculate name - start at c0 and increment by semitones, check no more than 2% out (difference between notes is ~5.9463%)
+        //calculate name - start at c0 and increment by semitones, check no more than 2% out (difference between notes is ~5.9463%)
         while (frequency > upper){
             offset++;
             currentNoteFrequency = semitoneUp(currentNoteFrequency);
@@ -92,8 +95,13 @@ class AudibleNote {
         return String.format("%s%s%d", note.getName(), note.getAccidental(), octave);
     }
 
+
+    private static double transpose(double frequency, int semitones){
+        return frequency * Math.pow(Math.pow(2, 1.0/12.0), semitones);
+    }
+
     private static double semitoneUp(double freq) {
-        return freq * Math.pow(Math.E, Math.log(2)/12) ;
+        return transpose(freq,1);
     }
 
 }

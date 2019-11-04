@@ -25,11 +25,8 @@ class Note {
         }
     }
 
-
-
     private Name name;
     private Accidental accidental;
-
 
 
 
