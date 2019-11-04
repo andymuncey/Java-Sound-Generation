@@ -1,5 +1,6 @@
 package com.tinyappco;
 
+import com.tinyappco.synths.DecayingSineWave;
 import com.tinyappco.temperaments.EqualTemperament;
 import com.tinyappco.temperaments.MusicalTemperament;
 
@@ -22,7 +23,7 @@ public class Score {
     public Score(){
         bars = new ArrayList<>();
         try {
-            generator = new ToneGenerator();
+            generator = new ToneGenerator(new DecayingSineWave());
         } catch (Exception ignored){}
     }
 

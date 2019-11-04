@@ -2,6 +2,8 @@ package com.tinyappco;
 
 import com.tinyappco.synths.SineWave;
 import com.tinyappco.synths.Synthesizer;
+import com.tinyappco.temperaments.EqualTemperament;
+import com.tinyappco.temperaments.MusicalTemperament;
 
 import javax.sound.sampled.*;
 
@@ -11,25 +13,27 @@ public class ToneGenerator {
     private int sampleSize = 16;
     private AudioFormat audioFormat = new AudioFormat(sampleRate, sampleSize, 1, true, false);
     private SourceDataLine sdl;// = AudioSystem.getSourceDataLine(audioFormat);
+    private Synthesizer synth;
+    private MusicalTemperament temperament;
 
-    public ToneGenerator(Synthesizer synth) throws LineUnavailableException {
+    public ToneGenerator(Synthesizer synth, MusicalTemperament temperament) throws LineUnavailableException {
         sdl = AudioSystem.getSourceDataLine(audioFormat);
         sdl.open();
         sdl.start();
 
         this.synth = synth;
+        this.temperament = temperament;
     }
 
     public ToneGenerator() throws LineUnavailableException{
-        this(new SineWave());
+        this(new SineWave(), new EqualTemperament());
     }
-
 
     public void setSynth(Synthesizer synth) {
         this.synth = synth;
     }
 
-    private Synthesizer synth;
+
     private void setFrequency(double frequency){
         frequencyAsLong = (Double.doubleToLongBits(frequency));
     }
@@ -69,6 +73,11 @@ public class ToneGenerator {
             });
 
             thread.start();
+
+            try { thread.join();
+            } catch (Exception e){
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -86,8 +95,9 @@ public class ToneGenerator {
 
             byte[] buf = new byte[2];
 
+
             for (int sampleNo = 0; sampleNo < length; sampleNo++) {
-                short sample = synth.sample(sampleRate, Short.MAX_VALUE, sampleNo, frequency);
+                short sample = synth.sample(sampleRate, velocity, sampleNo, frequency);
                 buf[0] = (byte) sample;
                 buf[1] = (byte) (sample >>> 8);
                 sdl.write(buf, 0, 2);
@@ -96,6 +106,11 @@ public class ToneGenerator {
 
         thread.start();
 
+        //force wait for thread to end
+        try { thread.join();
+        } catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 
 

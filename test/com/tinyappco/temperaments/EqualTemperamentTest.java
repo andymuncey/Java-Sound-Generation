@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 public class EqualTemperamentTest {
 
-    EqualTemperament et;
+    private EqualTemperament et;
 
     @Before
     public void setUp() throws Exception {
@@ -35,7 +35,7 @@ public class EqualTemperamentTest {
 
         Note dSharp6 = new Note(Note.Name.D, Note.Accidental.SHARP, 6);
         Assert.assertEquals(1244.508,et.frequency(dSharp6),0.0001);
-        
+
         Note eFlat6 = new Note(Note.Name.E, Note.Accidental.FLAT, 6);
         Assert.assertEquals(1244.508,et.frequency(eFlat6),0.0001);
 

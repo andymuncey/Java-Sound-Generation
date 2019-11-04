@@ -57,33 +57,45 @@ public class Note {
         assert(octave <= 9) : "Octave must be less than or equal to 9";
     }
 
-    public Note(String name){
+    public Note (Note note){
+        this(note.name, note.getAccidental(), note.getOctave());
+    }
 
-        assert(name.length() > 0) : "Note name cannot be empty";
+    public static Note parse(String noteName){
 
+        assert(noteName.length() > 0) : "Note name cannot be empty";
+        Name name = noteNameFromNoteString(noteName);
+        Accidental accidental = accidentalFromNoteString(noteName);
+        int octave = octaveFromNoteString(noteName);
+
+        return new Note(name,accidental,octave);
+    }
+
+    static Note.Name noteNameFromNoteString(String name){
         char noteLetter = name.toUpperCase().charAt(0);
 
         assert (noteLetter >= 'A') : "Note must start with character between A and G";
         assert (noteLetter <= 'G') : "Note must start with character between A and G";
 
-        this.name = Name.valueOf(String.valueOf(noteLetter));
-        if (name.length() > 1) {
+        return Name.valueOf(String.valueOf(noteLetter));
+    }
 
-            //sort accidentals
-            if (name.contains("♯") || name.contains("#")){
-                accidental = Accidental.SHARP;
-            } else if (name.contains("♭") || name.contains("b")){
-                accidental = Accidental.FLAT;
-            } else {
-                accidental = Accidental.NATURAL;
-            }
-
-            //sort octave
-            if (Character.isDigit(name.charAt(name.length()-1))){
-                int newOctave = Integer.parseInt(String.valueOf(name.charAt(name.length()-1)));
-                octave = newOctave;
-            }
+    static Note.Accidental accidentalFromNoteString(String name){
+        Accidental accidental = Accidental.NATURAL;
+        //sort accidentals
+        if (name.contains("♯") || name.contains("#")){
+            accidental = Accidental.SHARP;
+        } else if (name.contains("♭") || name.contains("b")){
+            accidental = Accidental.FLAT;
         }
+        return accidental;
+    }
+
+    static int octaveFromNoteString(String name){
+        if (Character.isDigit(name.charAt(name.length()-1))){
+            return Integer.parseInt(String.valueOf(name.charAt(name.length()-1)));
+        }
+        return 4;
     }
 
     public Name getName() {
