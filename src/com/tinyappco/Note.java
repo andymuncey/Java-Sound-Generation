@@ -1,5 +1,7 @@
 package com.tinyappco;
 
+import java.util.Comparator;
+
 /**
  * Represents a Note with an octave and accidental
  * Known limitation: Only handles octaves 0-9 inclusive
@@ -116,6 +118,7 @@ public class Note {
                 case C:
                     name = Name.B;
                     accidental = Accidental.NATURAL;
+                    octave--;
                     break;
                 case D:
                     name = Name.C;
@@ -175,6 +178,7 @@ public class Note {
                 case B:
                     name = Name.C;
                     accidental = Accidental.NATURAL;
+                    octave++;
                     break;
             }
         }

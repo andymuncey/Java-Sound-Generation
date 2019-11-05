@@ -16,6 +16,4 @@ public class Scales {
             new Note(Note.Name.A, Note.Accidental.SHARP),
             new Note(Note.Name.B, null),
     };
-
-
 }

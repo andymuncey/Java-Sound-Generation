@@ -14,12 +14,16 @@ public class EqualTemperament implements MusicalTemperament {
 
     @Override
     public double frequency(Note note) {
+
         note.convertToSharpRepresentation();
         Note.Name name = note.getName();
         Note.Accidental accidental = note.getAccidental();
         int octave = note.getOctave();
 
-        //work out how many semitones to go up by, based on the name and accidental of the note and their positions
+        //find frequency of C for the Octave of the note
+        double frequency = c0 * Math.pow(2,octave);
+
+        //find semitone difference between C and desired note (excluding octave)
         int semitonesUp = 0;
         for (int i = 0; i < Scales.C_CHROMATIC.length; i++) {
             Note scaleNote = Scales.C_CHROMATIC[i];
@@ -29,8 +33,6 @@ public class EqualTemperament implements MusicalTemperament {
             semitonesUp++;
         }
 
-        //find frequency of C for the Octave
-        double frequency = c0 * Math.pow(2,octave);
         return transpose(frequency,semitonesUp);
     }
 

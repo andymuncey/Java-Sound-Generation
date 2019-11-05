@@ -1,6 +1,8 @@
 package com.tinyappco;
 
 import com.tinyappco.synths.DecayingSineWave;
+import com.tinyappco.synths.Piano;
+import com.tinyappco.synths.SineWave;
 import com.tinyappco.temperaments.EqualTemperament;
 import com.tinyappco.temperaments.MusicalTemperament;
 
@@ -23,7 +25,7 @@ public class Score {
     public Score(){
         bars = new ArrayList<>();
         try {
-            generator = new ToneGenerator(new DecayingSineWave());
+            generator = new ToneGenerator(new DecayingSineWave(), new EqualTemperament());
         } catch (Exception ignored){}
     }
 
@@ -43,7 +45,7 @@ public class Score {
 
                 Runnable runnable = () -> {
                     double frequency = temperament.frequency(note.getNote());
-                    generator.play(frequency, (int) (note.getDuration() * beatLength), note.getVelocity());
+                    generator.play(frequency, (int) (note.getDuration() * beatLength), (short)(note.getVelocity()*10000));
                 };
                 int delayMS = (int)((note.getStart()* beatLength) + (elapsedBeats * beatLength));
                 scheduledExecutorService.schedule(runnable,delayMS, TimeUnit.MILLISECONDS);
