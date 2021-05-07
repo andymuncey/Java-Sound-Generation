@@ -1,10 +1,7 @@
 package com.tinyappco;
 
 import com.tinyappco.synths.DecayingSineWave;
-import com.tinyappco.synths.Piano;
-import com.tinyappco.synths.SineWave;
 import com.tinyappco.temperaments.EqualTemperament;
-import com.tinyappco.temperaments.MusicalTemperament;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
@@ -25,7 +22,7 @@ public class Score {
     public Score(){
         bars = new ArrayList<>();
         try {
-            generator = new ToneGenerator(new DecayingSineWave(), new EqualTemperament());
+            generator = new ToneGenerator(new DecayingSineWave(), new FrequencyFinder(new EqualTemperament()));
         } catch (Exception ignored){}
     }
 
@@ -35,7 +32,7 @@ public class Score {
         double beatLength = (60.0*1000) / tempo;
 
         int elapsedBeats = 0;
-        MusicalTemperament temperament = new EqualTemperament();
+        FrequencyFinder temperament = new FrequencyFinder(new EqualTemperament());
 
         for (Bar bar:bars) {
 

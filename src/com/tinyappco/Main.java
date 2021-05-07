@@ -3,21 +3,16 @@ package com.tinyappco;
 
 import com.tinyappco.synths.SineWave;
 import com.tinyappco.synths.Synthesizer;
-import com.tinyappco.temperaments.EqualTemperament;
-import com.tinyappco.temperaments.MusicalTemperament;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.nio.charset.StandardCharsets;
+import com.tinyappco.temperaments.JustIntonation;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
 
         Synthesizer synth = new SineWave();
-        MusicalTemperament equalTemperament = new EqualTemperament();
+        FrequencyFinder temperament = new FrequencyFinder(new JustIntonation());
 
-        SoundGenerator generator = new SoundGenerator(synth, equalTemperament);
+        SoundGenerator generator = new SoundGenerator(synth, temperament);
 
         generator.play(Note.parse("C4"), 2000, Velocity.PP);
         generator.play(Note.parse("G4"), 2000, Velocity.PP);

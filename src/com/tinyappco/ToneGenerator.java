@@ -3,7 +3,6 @@ package com.tinyappco;
 import com.tinyappco.synths.SineWave;
 import com.tinyappco.synths.Synthesizer;
 import com.tinyappco.temperaments.EqualTemperament;
-import com.tinyappco.temperaments.MusicalTemperament;
 
 import javax.sound.sampled.*;
 
@@ -14,9 +13,9 @@ public class ToneGenerator {
     private AudioFormat audioFormat = new AudioFormat(sampleRate, sampleSize, 1, true, false);
     private SourceDataLine sdl;// = AudioSystem.getSourceDataLine(audioFormat);
     private Synthesizer synth;
-    private MusicalTemperament temperament;
+    private FrequencyFinder temperament;
 
-    public ToneGenerator(Synthesizer synth, MusicalTemperament temperament) throws LineUnavailableException {
+    public ToneGenerator(Synthesizer synth, FrequencyFinder temperament) throws LineUnavailableException {
         sdl = AudioSystem.getSourceDataLine(audioFormat);
         sdl.open();
         sdl.start();
@@ -26,7 +25,7 @@ public class ToneGenerator {
     }
 
     public ToneGenerator() throws LineUnavailableException{
-        this(new SineWave(), new EqualTemperament());
+        this(new SineWave(), new FrequencyFinder(new EqualTemperament()));
     }
 
     public void setSynth(Synthesizer synth) {

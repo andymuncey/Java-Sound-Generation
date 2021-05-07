@@ -1,8 +1,6 @@
 package com.tinyappco;
 
 import com.tinyappco.synths.Synthesizer;
-import com.tinyappco.temperaments.EqualTemperament;
-import com.tinyappco.temperaments.MusicalTemperament;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
@@ -11,19 +9,19 @@ import javax.sound.sampled.SourceDataLine;
 
 class SoundGenerator {
 
-    private float sampleRate = 44100; //same as an audio CD
-    private int sampleSize = 16; //two bytes in each sample
+    private final float sampleRate = 44100; //same as an audio CD
+    private final int sampleSize = 16; //two bytes in each sample
     private AudioFormat audioFormat = new AudioFormat(sampleRate, sampleSize, 1, true, false);
-    private SourceDataLine sdl;
-    private Synthesizer synth;
-    private MusicalTemperament temperament;
+    private final SourceDataLine sdl;
+    private final Synthesizer synth;
+    private final FrequencyFinder frequencyFinder;
 
-    SoundGenerator(Synthesizer synth, MusicalTemperament temperament) throws LineUnavailableException {
+    SoundGenerator(Synthesizer synth, FrequencyFinder frequencyFinder) throws LineUnavailableException {
         sdl = AudioSystem.getSourceDataLine(audioFormat);
         sdl.open();
         sdl.start();
         this.synth = synth;
-        this.temperament = temperament;
+        this.frequencyFinder = frequencyFinder;
     }
 
     void close() {
@@ -60,7 +58,7 @@ class SoundGenerator {
         //scale from 0-127 to 0-32767
         short volume = (short)(velocity * (Short.MAX_VALUE / Byte.MAX_VALUE));
 
-        double frequency = temperament.frequency(note);
+        double frequency = frequencyFinder.frequency(note);
         play(frequency,duration,volume);
     }
 
