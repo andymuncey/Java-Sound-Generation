@@ -1,5 +1,6 @@
 package com.tinyappco;
 
+import com.tinyappco.temperaments.EqualTemperament;
 import com.tinyappco.temperaments.Temperament;
 
 /**
@@ -12,6 +13,10 @@ public class FrequencyFinder
 
     public FrequencyFinder(Temperament temperament){
         this.transposer = new Transposer(temperament);
+    }
+
+    public FrequencyFinder(){
+        this.transposer = new Transposer(new EqualTemperament());
     }
 
     private static final double c0 = 16.35160; //the lowest note we will accept

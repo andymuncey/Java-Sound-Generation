@@ -1,5 +1,6 @@
 package com.tinyappco;
 
+import com.tinyappco.temperaments.EqualTemperament;
 import com.tinyappco.temperaments.Temperament;
 
 public class Transposer
@@ -9,6 +10,11 @@ public class Transposer
     public Transposer(Temperament temperament){
         this.temperament = temperament;
     }
+
+    public Transposer(){
+        this.temperament = new EqualTemperament();
+    }
+
 
     public double transpose(double frequency, int semitones)
     {
