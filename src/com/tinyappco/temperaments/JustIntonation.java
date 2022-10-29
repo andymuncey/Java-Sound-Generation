@@ -47,9 +47,9 @@ public class JustIntonation implements Temperament
                 case PERFECT_FIFTH:
                     return (3.0 / 2.0);
                 case MINOR_SIXTH:
-                    return (5.0 / 3.0);
-                case MAJOR_SIXTH:
                     return (8.0 / 5.0);
+                case MAJOR_SIXTH:
+                    return (5.0 / 3.0);
                 case MINOR_SEVENTH:
                     return (9.0 / 5.0);
                 case MAJOR_SEVENTH:
